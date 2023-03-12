@@ -2,4 +2,11 @@
     <string name="app_name">Github User</string>
     <string name="search">Search</string>
     <string name="search_user">Search user</string>
+    <string name="_999_followers">999 Followers</string>
+    <string name="_999_following">999 Following</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="followers">Followers</string>
+    <string name="following">Following</string>
+    <string name="content_tab_text">This is Tab %1$d</string>
 </resources>

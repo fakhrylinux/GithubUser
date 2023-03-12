@@ -1,4 +1,4 @@
-package me.fakhry.githubuser
+package me.fakhry.githubuser.ui
 
 import android.app.SearchManager
 import android.content.Context
@@ -6,10 +6,14 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.widget.Toast
+import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import me.fakhry.githubuser.R
+import me.fakhry.githubuser.SectionsPagerAdapter
+import me.fakhry.githubuser.UserAdapter
 import me.fakhry.githubuser.databinding.ActivityMainBinding
 import me.fakhry.githubuser.model.ItemsItem
 import me.fakhry.githubuser.model.UserResponse
@@ -62,11 +66,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setUserData(items: List<ItemsItem>) {
-        val listUser = ArrayList<String>()
-        for (login in items) {
-            listUser.add(login.login)
-        }
-        val adapter = UserAdapter(listUser)
+
+        val adapter = UserAdapter(items)
         binding.rvListUser.adapter = adapter
     }
 
