@@ -4,6 +4,7 @@ import android.app.SearchManager
 import android.content.Context
 import android.os.Bundle
 import android.view.Menu
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
@@ -42,6 +43,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun setUserData(items: List<ItemsItem>) {
         binding.progressBar.showLoading(false)
+        if (items.isEmpty()) {
+            binding.tvErrorMessage.visibility = View.VISIBLE
+        }
         val adapter = ListUserAdapter(items)
         binding.rvListUser.adapter = adapter
     }
