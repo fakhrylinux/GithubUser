@@ -6,6 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import me.fakhry.githubuser.network.ApiConfig
 import me.fakhry.githubuser.network.response.GetUserResponse
+import me.fakhry.githubuser.network.response.ItemsItem
+import me.fakhry.githubuser.ui.FollowFragment
 import me.fakhry.githubuser.ui.UserDetailActivity
 import retrofit2.Call
 import retrofit2.Callback
@@ -18,6 +20,9 @@ class UserDetailViewModel : ViewModel() {
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
+
+    private val _userFollow = MutableLiveData<List<ItemsItem>?>()
+    val userFollow: MutableLiveData<List<ItemsItem>?> = _userFollow
 
     fun setUserDetail(username: String) {
         _isLoading.value = true
@@ -38,6 +43,36 @@ class UserDetailViewModel : ViewModel() {
 
             override fun onFailure(call: Call<GetUserResponse>, t: Throwable) {
                 Log.e(UserDetailActivity.TAG, "onFailure: ${t.message}")
+            }
+        })
+    }
+
+    fun setUserFollow(username: String, position: Int) {
+        if (position == 0) {
+            val client = ApiConfig.getApiService().getListFollowersOfUser(username)
+            getDataFollow(client)
+        } else {
+            val client = ApiConfig.getApiService().getListFollowingOfUser(username)
+            getDataFollow(client)
+        }
+    }
+
+    private fun getDataFollow(client: Call<List<ItemsItem>>) {
+        client.enqueue(object : Callback<List<ItemsItem>> {
+            override fun onResponse(
+                call: Call<List<ItemsItem>>,
+                response: Response<List<ItemsItem>>
+            ) {
+                if (response.isSuccessful) {
+                    val responseBody = response.body()
+                    if (responseBody != null) {
+                        _userFollow.value = responseBody
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<List<ItemsItem>>, t: Throwable) {
+                Log.e(FollowFragment::class.java.simpleName, "onFailure: ${t.message}")
             }
         })
     }

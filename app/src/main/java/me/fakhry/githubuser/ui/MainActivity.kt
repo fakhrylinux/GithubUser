@@ -16,7 +16,6 @@ import me.fakhry.githubuser.databinding.ActivityMainBinding
 import me.fakhry.githubuser.network.response.ItemsItem
 import me.fakhry.githubuser.util.showLoading
 
-
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
@@ -68,6 +67,7 @@ class MainActivity : AppCompatActivity() {
                 return false
             }
         })
+
         return true
     }
 }
