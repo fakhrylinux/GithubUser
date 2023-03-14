@@ -1,7 +1,6 @@
 package me.fakhry.githubuser.ui
 
 import android.os.Bundle
-import android.view.View
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
@@ -12,6 +11,7 @@ import me.fakhry.githubuser.SectionsPagerAdapter
 import me.fakhry.githubuser.UserDetailViewModel
 import me.fakhry.githubuser.databinding.ActivityUserDetailBinding
 import me.fakhry.githubuser.network.response.GetUserResponse
+import me.fakhry.githubuser.util.showLoading
 
 class UserDetailActivity : AppCompatActivity() {
 
@@ -52,7 +52,7 @@ class UserDetailActivity : AppCompatActivity() {
         }
 
         userDetailViewModel.isLoading.observe(this) { isLoading ->
-            showLoading(isLoading)
+            binding.progressBar.showLoading(isLoading)
         }
     }
 
@@ -64,14 +64,6 @@ class UserDetailActivity : AppCompatActivity() {
             tvEmail.text = responseBody.email
             tvFollowers.text = getString(R.string._999_followers, responseBody.followers)
             tvFollowing.text = getString(R.string._999_following, responseBody.following)
-        }
-    }
-
-    private fun showLoading(isLoading: Boolean) {
-        if (isLoading) {
-            binding.progressBar.visibility = View.VISIBLE
-        } else {
-            binding.progressBar.visibility = View.GONE
         }
     }
 }

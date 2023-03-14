@@ -4,7 +4,6 @@ import android.app.SearchManager
 import android.content.Context
 import android.os.Bundle
 import android.view.Menu
-import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
@@ -15,16 +14,13 @@ import me.fakhry.githubuser.MainViewModel
 import me.fakhry.githubuser.R
 import me.fakhry.githubuser.databinding.ActivityMainBinding
 import me.fakhry.githubuser.network.response.ItemsItem
+import me.fakhry.githubuser.util.showLoading
 
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private val mainViewModel: MainViewModel by viewModels()
-
-    companion object {
-        private const val TAG = "MainActivity"
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,12 +37,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         mainViewModel.isLoading.observe(this) { isLoading ->
-            showLoading(isLoading)
+            binding.progressBar.showLoading(isLoading)
         }
     }
 
     private fun setUserData(items: List<ItemsItem>) {
-        showLoading(false)
+        binding.progressBar.showLoading(false)
         val adapter = ListUserAdapter(items)
         binding.rvListUser.adapter = adapter
     }
@@ -73,13 +69,5 @@ class MainActivity : AppCompatActivity() {
             }
         })
         return true
-    }
-
-    private fun showLoading(isLoading: Boolean) {
-        if (isLoading) {
-            binding.progressBar.visibility = View.VISIBLE
-        } else {
-            binding.progressBar.visibility = View.GONE
-        }
     }
 }
