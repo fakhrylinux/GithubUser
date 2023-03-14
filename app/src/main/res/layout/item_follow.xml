@@ -9,7 +9,6 @@
     android:layout_marginTop="4dp"
     android:layout_marginEnd="8dp"
     android:layout_marginBottom="4dp"
-    android:elevation="16dp"
     card_view:cardCornerRadius="4dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,10 +18,10 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iv_photo"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginStart="4dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             card_view:layout_constraintBottom_toBottomOf="parent"
+            card_view:layout_constraintEnd_toEndOf="@id/guideline"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toTopOf="parent"
             tools:src="@tools:sample/avatars" />
@@ -32,19 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            card_view:layout_constraintGuide_begin="105dp" />
-
-        <TextView
-            android:id="@+id/tv_name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            card_view:layout_constraintEnd_toEndOf="parent"
-            card_view:layout_constraintStart_toEndOf="@id/guideline"
-            card_view:layout_constraintTop_toTopOf="parent"
-            tools:text="Muhammad Fakhry" />
+            card_view:layout_constraintGuide_begin="60dp" />
 
         <TextView
             android:id="@+id/tv_login"
@@ -53,22 +40,12 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="4dp"
             android:textSize="14sp"
-            card_view:layout_constraintEnd_toEndOf="@id/tv_name"
+            card_view:layout_constraintBottom_toBottomOf="parent"
+            card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintStart_toEndOf="@id/guideline"
-            card_view:layout_constraintTop_toBottomOf="@id/tv_name"
+            card_view:layout_constraintTop_toTopOf="parent"
             tools:text="fakhrylinux" />
 
-        <TextView
-            android:id="@+id/tv_bio"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="4dp"
-            android:textSize="16sp"
-            card_view:layout_constraintEnd_toEndOf="@id/tv_login"
-            card_view:layout_constraintStart_toEndOf="@id/guideline"
-            card_view:layout_constraintTop_toBottomOf="@id/tv_login"
-            tools:text="Just a humen being" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

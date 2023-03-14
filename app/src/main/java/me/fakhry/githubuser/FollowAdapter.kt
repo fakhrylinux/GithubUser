@@ -21,9 +21,9 @@ class FollowAdapter(private val listFollow: List<ItemsItem>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val avatar = listFollow[position].avatarUrl
-        val name = listFollow[position].login
+        val login = listFollow[position].login
         holder.binding.ivPhoto.load(avatar)
-        holder.binding.tvName.text = name
+        holder.binding.tvLogin.text = login
     }
 
     override fun getItemCount(): Int = listFollow.size
