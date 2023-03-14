@@ -5,19 +5,17 @@ import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
-import android.widget.Toast
-import androidx.annotation.StringRes
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import me.fakhry.githubuser.ListUserAdapter
 import me.fakhry.githubuser.R
-import me.fakhry.githubuser.SectionsPagerAdapter
-import me.fakhry.githubuser.UserAdapter
 import me.fakhry.githubuser.databinding.ActivityMainBinding
-import me.fakhry.githubuser.model.ItemsItem
-import me.fakhry.githubuser.model.UserResponse
-import me.fakhry.githubuser.networking.ApiConfig
+import me.fakhry.githubuser.network.ApiConfig
+import me.fakhry.githubuser.network.response.ItemsItem
+import me.fakhry.githubuser.network.response.SearchUserResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -37,20 +35,20 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        supportActionBar?.hide()
-
         val layouManager = LinearLayoutManager(this)
         binding.rvListUser.layoutManager = layouManager
         val itemDecoration = DividerItemDecoration(this, layouManager.orientation)
         binding.rvListUser.addItemDecoration(itemDecoration)
-
-        findUser()
     }
 
-    private fun findUser() {
-        val client = ApiConfig.getApiService().getUsersByQuery(USER_QUERY)
-        client.enqueue(object : Callback<UserResponse> {
-            override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
+    private fun findUser(query: String) {
+        showLoading(true)
+        val client = ApiConfig.getApiService().getUsersByQuery(query)
+        client.enqueue(object : Callback<SearchUserResponse> {
+            override fun onResponse(
+                call: Call<SearchUserResponse>,
+                response: Response<SearchUserResponse>
+            ) {
                 if (response.isSuccessful) {
                     val responseBody = response.body()
                     if (responseBody != null) {
@@ -59,15 +57,16 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<UserResponse>, t: Throwable) {
+            override fun onFailure(call: Call<SearchUserResponse>, t: Throwable) {
+                showLoading(false)
                 Log.e(TAG, "onFailure: ${t.message}")
             }
         })
     }
 
     private fun setUserData(items: List<ItemsItem>) {
-
-        val adapter = UserAdapter(items)
+        showLoading(false)
+        val adapter = ListUserAdapter(items)
         binding.rvListUser.adapter = adapter
     }
 
@@ -82,7 +81,7 @@ class MainActivity : AppCompatActivity() {
         searchView.queryHint = resources.getString(R.string.search_user)
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                Toast.makeText(this@MainActivity, query, Toast.LENGTH_SHORT).show()
+                findUser(query!!)
                 searchView.clearFocus()
 
                 return true
@@ -93,5 +92,13 @@ class MainActivity : AppCompatActivity() {
             }
         })
         return true
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
+        }
     }
 }

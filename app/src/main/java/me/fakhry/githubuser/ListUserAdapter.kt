@@ -6,11 +6,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import me.fakhry.githubuser.databinding.RowItemBinding
-import me.fakhry.githubuser.model.ItemsItem
+import me.fakhry.githubuser.network.response.ItemsItem
 import me.fakhry.githubuser.ui.UserDetailActivity
 
-class UserAdapter(private val listUser: List<ItemsItem>) :
-    RecyclerView.Adapter<UserAdapter.ViewHolder>() {
+class ListUserAdapter(private val listUser: List<ItemsItem>) :
+    RecyclerView.Adapter<ListUserAdapter.ViewHolder>() {
 
     class ViewHolder(var binding: RowItemBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -29,6 +29,7 @@ class UserAdapter(private val listUser: List<ItemsItem>) :
 
         holder.itemView.setOnClickListener {
             val intentDetail = Intent(holder.itemView.context, UserDetailActivity::class.java)
+            intentDetail.putExtra(UserDetailActivity.EXTRA_USER, name)
             holder.itemView.context.startActivity(intentDetail)
         }
     }
