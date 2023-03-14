@@ -58,12 +58,14 @@ class UserDetailViewModel : ViewModel() {
     }
 
     private fun getDataFollow(client: Call<List<ItemsItem>>) {
+        _isLoading.value = true
         client.enqueue(object : Callback<List<ItemsItem>> {
             override fun onResponse(
                 call: Call<List<ItemsItem>>,
                 response: Response<List<ItemsItem>>
             ) {
                 if (response.isSuccessful) {
+                    _isLoading.value = false
                     val responseBody = response.body()
                     if (responseBody != null) {
                         _userFollow.value = responseBody

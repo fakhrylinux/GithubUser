@@ -126,18 +126,7 @@
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/tabs" />
-
-    <ProgressBar
-        android:id="@+id/pb_follow"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/view_pager"
-        tools:visibility="visible" />
+        app:layout_constraintTop_toBottomOf="@id/tabs" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

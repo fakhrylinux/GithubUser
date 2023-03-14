@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import me.fakhry.githubuser.FollowAdapter
 import me.fakhry.githubuser.UserDetailViewModel
 import me.fakhry.githubuser.databinding.FragmentFollowBinding
+import me.fakhry.githubuser.util.showLoading
 
 class FollowFragment : Fragment() {
 
@@ -49,6 +50,10 @@ class FollowFragment : Fragment() {
         binding.rvListFollow.addItemDecoration(itemDecoration)
 
         userDetailViewModel.setUserFollow(username!!, position)
+
+        userDetailViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            binding.pbFollow.showLoading(isLoading)
+        }
 
         userDetailViewModel.userFollow.observe(viewLifecycleOwner) { userFollow ->
             val adapter = FollowAdapter(userFollow!!)
