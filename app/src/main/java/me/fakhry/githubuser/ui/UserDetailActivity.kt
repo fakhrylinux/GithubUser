@@ -61,7 +61,7 @@ class UserDetailActivity : AppCompatActivity() {
             ivAvatar.load(responseBody.avatarUrl)
             tvFullName.text = responseBody.name
             tvLogin.text = responseBody.login
-            tvEmail.text = responseBody.email
+            tvBio.text = responseBody.bio
             tvFollowers.text = getString(R.string._999_followers, responseBody.followers)
             tvFollowing.text = getString(R.string._999_following, responseBody.following)
         }
