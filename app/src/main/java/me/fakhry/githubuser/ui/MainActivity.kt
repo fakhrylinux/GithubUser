@@ -32,6 +32,10 @@ class MainActivity : AppCompatActivity() {
         val itemDecoration = DividerItemDecoration(this, layouManager.orientation)
         binding.rvListUser.addItemDecoration(itemDecoration)
 
+        observeViewModel()
+    }
+
+    private fun observeViewModel() {
         mainViewModel.listUsers.observe(this) { listUsers ->
             setUserData(listUsers)
         }
@@ -61,6 +65,7 @@ class MainActivity : AppCompatActivity() {
         searchView.queryHint = resources.getString(R.string.search_user)
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
+                binding.tvErrorMessage.visibility = View.GONE
                 mainViewModel.findUser(query!!)
                 searchView.clearFocus()
 
