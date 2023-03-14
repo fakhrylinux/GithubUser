@@ -45,9 +45,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun findUser(query: String) {
-    }
-
     private fun setUserData(items: List<ItemsItem>) {
         showLoading(false)
         val adapter = ListUserAdapter(items)
@@ -65,7 +62,7 @@ class MainActivity : AppCompatActivity() {
         searchView.queryHint = resources.getString(R.string.search_user)
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                findUser(query!!)
+                mainViewModel.findUser(query!!)
                 searchView.clearFocus()
 
                 return true

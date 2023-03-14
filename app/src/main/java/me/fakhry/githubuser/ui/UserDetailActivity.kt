@@ -1,23 +1,22 @@
 package me.fakhry.githubuser.ui
 
 import android.os.Bundle
-import android.util.Log
+import android.view.View
+import androidx.activity.viewModels
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import coil.load
 import com.google.android.material.tabs.TabLayoutMediator
 import me.fakhry.githubuser.R
 import me.fakhry.githubuser.SectionsPagerAdapter
+import me.fakhry.githubuser.UserDetailViewModel
 import me.fakhry.githubuser.databinding.ActivityUserDetailBinding
-import me.fakhry.githubuser.network.ApiConfig
 import me.fakhry.githubuser.network.response.GetUserResponse
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class UserDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityUserDetailBinding
+    private val userDetailViewModel: UserDetailViewModel by viewModels()
 
     companion object {
         const val EXTRA_USER = "extra_user"
@@ -46,28 +45,15 @@ class UserDetailActivity : AppCompatActivity() {
 
         supportActionBar?.elevation = 0f
 
-        getUser()
-    }
+        userDetailViewModel.setUserDetail(intent.getStringExtra(EXTRA_USER)!!)
 
-    private fun getUser() {
-        val client = ApiConfig.getApiService().getUser(intent.getStringExtra(EXTRA_USER)!!)
-        client.enqueue(object : Callback<GetUserResponse> {
-            override fun onResponse(
-                call: Call<GetUserResponse>,
-                response: Response<GetUserResponse>
-            ) {
-                if (response.isSuccessful) {
-                    val responseBody = response.body()
-                    if (responseBody != null) {
-                        setUserView(responseBody)
-                    }
-                }
-            }
+        userDetailViewModel.userDetail.observe(this) { userDetail ->
+            setUserView(userDetail!!)
+        }
 
-            override fun onFailure(call: Call<GetUserResponse>, t: Throwable) {
-                Log.e(TAG, "onFailure: ${t.message}")
-            }
-        })
+        userDetailViewModel.isLoading.observe(this) { isLoading ->
+            showLoading(isLoading)
+        }
     }
 
     private fun setUserView(responseBody: GetUserResponse) {
@@ -78,6 +64,14 @@ class UserDetailActivity : AppCompatActivity() {
             tvEmail.text = responseBody.email
             tvFollowers.text = getString(R.string._999_followers, responseBody.followers)
             tvFollowing.text = getString(R.string._999_following, responseBody.following)
+        }
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
         }
     }
 }
