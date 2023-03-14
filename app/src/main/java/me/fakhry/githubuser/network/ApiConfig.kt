@@ -16,7 +16,7 @@ class ApiConfig {
                 val requestHeaders = req.newBuilder()
                     .addHeader(
                         "Authorization",
-                        "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"
+                        "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"
                     )
                     .build()
                 chain.proceed(requestHeaders)
