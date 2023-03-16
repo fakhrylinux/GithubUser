@@ -49,14 +49,14 @@ class FollowFragment : Fragment() {
         val itemDecoration = DividerItemDecoration(activity, layoutManager.orientation)
         binding.rvListFollow.addItemDecoration(itemDecoration)
 
-        userDetailViewModel.setUserFollow(username!!, position)
+        userDetailViewModel.setUserFollow(username ?: "", position)
 
         userDetailViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             binding.pbFollow.showLoading(isLoading)
         }
 
         userDetailViewModel.userFollow.observe(viewLifecycleOwner) { userFollow ->
-            val adapter = FollowAdapter(userFollow!!)
+            val adapter = FollowAdapter(userFollow)
             binding.rvListFollow.adapter = adapter
         }
     }

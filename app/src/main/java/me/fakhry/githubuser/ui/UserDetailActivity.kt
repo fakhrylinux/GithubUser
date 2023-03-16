@@ -37,7 +37,7 @@ class UserDetailActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         val sectionsPagerAdapter = SectionsPagerAdapter(this)
-        sectionsPagerAdapter.username = intent.getStringExtra(EXTRA_USER)!!
+        sectionsPagerAdapter.username = intent.getStringExtra(EXTRA_USER) ?: ""
         binding.viewPager.adapter = sectionsPagerAdapter
         TabLayoutMediator(binding.tabs, binding.viewPager) { tab, position ->
             tab.text = resources.getString(TAB_TITLES[position])
@@ -45,10 +45,10 @@ class UserDetailActivity : AppCompatActivity() {
 
         supportActionBar?.elevation = 0f
 
-        userDetailViewModel.setUserDetail(intent.getStringExtra(EXTRA_USER)!!)
+        userDetailViewModel.setUserDetail(intent.getStringExtra(EXTRA_USER) ?: "")
 
         userDetailViewModel.userDetail.observe(this) { userDetail ->
-            setUserView(userDetail!!)
+            setUserView(userDetail)
         }
 
         userDetailViewModel.isLoading.observe(this) { isLoading ->

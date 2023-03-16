@@ -8,23 +8,23 @@ import kotlinx.parcelize.Parcelize
 data class GetUserResponse(
 
     @field:SerializedName("bio")
-    val bio: String? = null,
+    val bio: String,
 
     @field:SerializedName("login")
-    val login: String? = null,
+    val login: String,
 
     @field:SerializedName("email")
-    val email: String? = null,
+    val email: String,
 
     @field:SerializedName("followers")
-    val followers: Int? = null,
+    val followers: Int,
 
     @field:SerializedName("avatar_url")
-    val avatarUrl: String? = null,
+    val avatarUrl: String,
 
     @field:SerializedName("following")
-    val following: Int? = null,
+    val following: Int,
 
     @field:SerializedName("name")
-    val name: String? = null
+    val name: String
 ) : Parcelable

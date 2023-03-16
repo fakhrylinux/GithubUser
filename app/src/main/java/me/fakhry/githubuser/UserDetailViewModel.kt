@@ -15,14 +15,14 @@ import retrofit2.Response
 
 class UserDetailViewModel : ViewModel() {
 
-    private val _userDetail = MutableLiveData<GetUserResponse?>()
-    val userDetail: MutableLiveData<GetUserResponse?> = _userDetail
+    private val _userDetail = MutableLiveData<GetUserResponse>()
+    val userDetail: MutableLiveData<GetUserResponse> = _userDetail
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-    private val _userFollow = MutableLiveData<List<ItemsItem>?>()
-    val userFollow: MutableLiveData<List<ItemsItem>?> = _userFollow
+    private val _userFollow = MutableLiveData<List<ItemsItem>>()
+    val userFollow: MutableLiveData<List<ItemsItem>> = _userFollow
 
     fun setUserDetail(username: String) {
         _isLoading.value = true
@@ -34,10 +34,7 @@ class UserDetailViewModel : ViewModel() {
             ) {
                 if (response.isSuccessful) {
                     _isLoading.value = false
-                    val responseBody = response.body()
-                    if (responseBody != null) {
-                        _userDetail.value = responseBody
-                    }
+                    _userDetail.value = response.body()
                 }
             }
 
@@ -66,10 +63,7 @@ class UserDetailViewModel : ViewModel() {
             ) {
                 if (response.isSuccessful) {
                     _isLoading.value = false
-                    val responseBody = response.body()
-                    if (responseBody != null) {
-                        _userFollow.value = responseBody
-                    }
+                    _userFollow.value = response.body()
                 }
             }
 
