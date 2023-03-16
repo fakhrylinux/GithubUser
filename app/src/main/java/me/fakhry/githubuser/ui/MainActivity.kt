@@ -27,9 +27,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val layouManager = LinearLayoutManager(this)
-        binding.rvListUser.layoutManager = layouManager
-        val itemDecoration = DividerItemDecoration(this, layouManager.orientation)
+        val layoutManager = LinearLayoutManager(this)
+        binding.rvListUser.layoutManager = layoutManager
+        val itemDecoration = DividerItemDecoration(this, layoutManager.orientation)
         binding.rvListUser.addItemDecoration(itemDecoration)
 
         observeViewModel()

@@ -10,9 +10,7 @@ import me.fakhry.githubuser.network.response.ItemsItem
 class FollowAdapter(private val listFollow: List<ItemsItem>) :
     RecyclerView.Adapter<FollowAdapter.ViewHolder>() {
 
-    class ViewHolder(var binding: ItemFollowBinding) : RecyclerView.ViewHolder(binding.root) {
-
-    }
+    class ViewHolder(var binding: ItemFollowBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemFollowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
