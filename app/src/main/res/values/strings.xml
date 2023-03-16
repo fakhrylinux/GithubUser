@@ -12,7 +12,7 @@
     <string name="full_name">Muhammad Fakhry Burhanuddin</string>
     <string name="username">fakhrylinux</string>
     <string name="bio">Just another human being</string>
-    <string name="followers_count">999 Followers</string>
-    <string name="following_count">999 Following</string>
+    <string name="followers_count">  999 Followers</string>
+    <string name="following_count">  999 Following</string>
     <string name="no_data_found">No Data Found</string>
 </resources>
