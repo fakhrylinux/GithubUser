@@ -9,8 +9,8 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.divider.MaterialDividerItemDecoration
 import me.fakhry.githubuser.ListUserAdapter
 import me.fakhry.githubuser.MainViewModel
 import me.fakhry.githubuser.R
@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
 
         val layoutManager = LinearLayoutManager(this)
         binding.rvListUser.layoutManager = layoutManager
-        val itemDecoration = DividerItemDecoration(this, layoutManager.orientation)
+        val itemDecoration = MaterialDividerItemDecoration(this, layoutManager.orientation)
         binding.rvListUser.addItemDecoration(itemDecoration)
 
         observeViewModel()
