@@ -3,7 +3,7 @@ package me.fakhry.githubuser.ui
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import me.fakhry.githubuser.UserDetailViewModel
+import me.fakhry.githubuser.ui.detail.UserDetailViewModel
 import me.fakhry.githubuser.data.repository.FavoriteRepository
 import me.fakhry.githubuser.di.Injection
 

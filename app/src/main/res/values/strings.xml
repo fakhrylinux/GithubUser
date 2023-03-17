@@ -16,4 +16,5 @@
     <string name="following_count">  999 Following</string>
     <string name="no_data_found">No Data Found</string>
     <string name="favorite">Favorite</string>
+    <string name="add_to_favorite">Add to favorite</string>
 </resources>

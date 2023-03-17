@@ -18,5 +18,5 @@ class FavoriteEntity(
     var avatarUrl: String? = null,
 
     @field:ColumnInfo(name = "is_favorite")
-    var isFavorited: Boolean
+    var isFavorite: Boolean
 ) : Parcelable

@@ -1,4 +1,4 @@
-package me.fakhry.githubuser
+package me.fakhry.githubuser.ui.detail
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -12,7 +12,6 @@ import me.fakhry.githubuser.data.network.response.ItemsItem
 import me.fakhry.githubuser.data.network.retrofit.ApiConfig
 import me.fakhry.githubuser.data.repository.FavoriteRepository
 import me.fakhry.githubuser.ui.FollowFragment
-import me.fakhry.githubuser.ui.UserDetailActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -31,7 +30,10 @@ class UserDetailViewModel(private val favoriteRepository: FavoriteRepository) : 
     private val _isFavorite = MutableLiveData<Boolean>()
     val isFavorite: LiveData<Boolean> = _isFavorite
 
-    fun setUserDetail(username: String) {
+    private val _usernameFav = MutableLiveData<String>()
+    val usernameFav: LiveData<String> = _usernameFav
+
+    fun getUserDetail(username: String) {
         _isLoading.value = true
         val client = ApiConfig.getApiService().getUser(username)
         client.enqueue(object : Callback<GetUserResponse> {
@@ -80,11 +82,22 @@ class UserDetailViewModel(private val favoriteRepository: FavoriteRepository) : 
         })
     }
 
+//    fun getFavoriteByUsername(username: String) {
+//        _usernameFav.value = favoriteRepository.getFavoriteByUsername(username).value?.username
+//        _isFavorite.value = _usernameFav.value != null
+//    }
+
+    fun isFavorite(username: String) {
+        viewModelScope.launch {
+            _isFavorite.value = favoriteRepository.isFavorite(username)
+        }
+    }
+
     fun saveFavorite(isFavorite: Boolean) {
         val favoriteEntity = FavoriteEntity(
             username = _userDetail.value?.login!!,
             avatarUrl = _userDetail.value?.avatarUrl!!,
-            isFavorited = isFavorite
+            isFavorite = isFavorite
         )
         viewModelScope.launch {
             favoriteRepository.setFavorite(favoriteEntity, true)

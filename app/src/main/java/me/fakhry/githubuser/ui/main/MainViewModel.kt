@@ -1,4 +1,4 @@
-package me.fakhry.githubuser
+package me.fakhry.githubuser.ui.main
 
 import android.util.Log
 import androidx.lifecycle.LiveData

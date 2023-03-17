@@ -1,4 +1,4 @@
-package me.fakhry.githubuser.ui
+package me.fakhry.githubuser.ui.detail
 
 import android.os.Bundle
 import android.view.Menu
@@ -6,23 +6,23 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import coil.load
 import com.google.android.material.tabs.TabLayoutMediator
 import me.fakhry.githubuser.R
 import me.fakhry.githubuser.SectionsPagerAdapter
-import me.fakhry.githubuser.UserDetailViewModel
-import me.fakhry.githubuser.data.local.entity.FavoriteEntity
 import me.fakhry.githubuser.data.network.response.GetUserResponse
 import me.fakhry.githubuser.data.network.response.ItemsItem
 import me.fakhry.githubuser.databinding.ActivityUserDetailBinding
+import me.fakhry.githubuser.ui.ViewModelFactory
 import me.fakhry.githubuser.util.showLoading
 
 class UserDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityUserDetailBinding
     private lateinit var menuFav: Menu
-//    private var favorite: FavoriteEntity? = null
+
     private var user: ItemsItem? = null
     private lateinit var userDetailViewModel: UserDetailViewModel
 
@@ -33,8 +33,6 @@ class UserDetailActivity : AppCompatActivity() {
 
         userDetailViewModel = obtainViewModel(this@UserDetailActivity)
 
-//        supportActionBar?.hide()
-
         val sectionsPagerAdapter = SectionsPagerAdapter(this)
         sectionsPagerAdapter.username = intent.getStringExtra(EXTRA_USER) ?: ""
         binding.viewPager.adapter = sectionsPagerAdapter
@@ -44,10 +42,22 @@ class UserDetailActivity : AppCompatActivity() {
 
         supportActionBar?.elevation = 0f
 
-        userDetailViewModel.setUserDetail(intent.getStringExtra(EXTRA_USER) ?: "")
+        userDetailViewModel.getUserDetail(intent.getStringExtra(EXTRA_USER) ?: "")
 
         userDetailViewModel.userDetail.observe(this) { userDetail ->
             populateDetailView(userDetail)
+        }
+
+//        userDetailViewModel.getFavoriteByUsername()
+
+        userDetailViewModel.isFavorite.observe(this) { isFavorite ->
+            if (isFavorite) {
+                menuFav.getItem(0).icon =
+                    ContextCompat.getDrawable(this, R.drawable.ic_favorite_24)
+            } else {
+                menuFav.getItem(0).icon =
+                    ContextCompat.getDrawable(this, R.drawable.ic_favorite_border_24)
+            }
         }
 
         userDetailViewModel.isLoading.observe(this) { isLoading ->
@@ -56,6 +66,7 @@ class UserDetailActivity : AppCompatActivity() {
     }
 
     private fun populateDetailView(responseBody: GetUserResponse) {
+//        userDetailViewModel.getFavoriteByUsername(intent?.getStringExtra(EXTRA_USER) ?: "")
         binding.apply {
             ivAvatar.load(responseBody.avatarUrl)
             tvFullName.text = responseBody.name
@@ -64,6 +75,7 @@ class UserDetailActivity : AppCompatActivity() {
             tvFollowers.text = getString(R.string._999_followers, responseBody.followers)
             tvFollowing.text = getString(R.string._999_following, responseBody.following)
         }
+        userDetailViewModel.isFavorite(responseBody.login)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -77,12 +89,9 @@ class UserDetailActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.favorite -> {
-//                favorite?.let { favorite ->
-//                }
-
                 userDetailViewModel.saveFavorite(true)
 
-                Toast.makeText(this, "Add to favorite", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, getString(R.string.add_to_favorite), Toast.LENGTH_SHORT).show()
             }
         }
         return super.onOptionsItemSelected(item)

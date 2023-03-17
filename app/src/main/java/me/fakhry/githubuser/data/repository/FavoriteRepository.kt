@@ -15,8 +15,16 @@ class FavoriteRepository private constructor(
     }
 
     suspend fun setFavorite(favorite: FavoriteEntity, favoriteState: Boolean) {
-        favorite.isFavorited = favoriteState
+        favorite.isFavorite = favoriteState
         favoriteDao.insert(favorite)
+    }
+
+    fun getFavoriteByUsername(username: String): LiveData<FavoriteEntity?> {
+        return favoriteDao.getFavoriteByUsername(username)
+    }
+
+    suspend fun isFavorite(username: String): Boolean {
+        return favoriteDao.isFavorite(username)
     }
 
     companion object {
