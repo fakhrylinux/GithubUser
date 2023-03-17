@@ -14,6 +14,7 @@ data class SearchUserResponse(
     val items: List<ItemsItem>
 )
 
+
 data class ItemsItem(
 
     @field:SerializedName("login")

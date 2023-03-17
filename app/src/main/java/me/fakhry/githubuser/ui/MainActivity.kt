@@ -2,6 +2,7 @@ package me.fakhry.githubuser.ui
 
 import android.app.SearchManager
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
@@ -52,6 +53,14 @@ class MainActivity : AppCompatActivity() {
         }
         val adapter = ListUserAdapter(items)
         binding.rvListUser.adapter = adapter
+
+        adapter.setOnItemClickCallback(object : ListUserAdapter.OnItemClickCallback {
+            override fun onItemClicked(data: ItemsItem) {
+                val intentDetail = Intent(this@MainActivity, UserDetailActivity::class.java)
+                intentDetail.putExtra(UserDetailActivity.EXTRA_USER, data.login)
+                startActivity(intentDetail)
+            }
+        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

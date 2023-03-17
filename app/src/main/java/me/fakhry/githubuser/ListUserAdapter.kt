@@ -1,16 +1,20 @@
 package me.fakhry.githubuser
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import me.fakhry.githubuser.databinding.RowItemBinding
 import me.fakhry.githubuser.network.response.ItemsItem
-import me.fakhry.githubuser.ui.UserDetailActivity
 
 class ListUserAdapter(private val listUser: List<ItemsItem>) :
     RecyclerView.Adapter<ListUserAdapter.ViewHolder>() {
+
+    private lateinit var onItemClickCallback: OnItemClickCallback
+
+    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
+        this.onItemClickCallback = onItemClickCallback
+    }
 
     class ViewHolder(var binding: RowItemBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -28,9 +32,11 @@ class ListUserAdapter(private val listUser: List<ItemsItem>) :
         holder.binding.ivPhoto.load(photo)
 
         holder.itemView.setOnClickListener {
-            val intentDetail = Intent(holder.itemView.context, UserDetailActivity::class.java)
-            intentDetail.putExtra(UserDetailActivity.EXTRA_USER, name)
-            holder.itemView.context.startActivity(intentDetail)
+            onItemClickCallback.onItemClicked(listUser[holder.adapterPosition])
         }
+    }
+
+    interface OnItemClickCallback {
+        fun onItemClicked(data: ItemsItem)
     }
 }
