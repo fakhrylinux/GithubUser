@@ -44,13 +44,22 @@ class MainActivity : AppCompatActivity() {
         mainViewModel.isLoading.observe(this) { isLoading ->
             binding.progressBar.showLoading(isLoading)
         }
+
+        mainViewModel.isError.observe(this) { isError ->
+            if (isError) {
+                binding.tvErrorMessage.visibility = View.VISIBLE
+            } else {
+                binding.tvErrorMessage.visibility = View.GONE
+            }
+        }
+
+        mainViewModel.respondMessage.observe(this) { message ->
+            binding.tvErrorMessage.text = message
+        }
     }
 
     private fun setUserData(items: List<ItemsItem>) {
         binding.progressBar.showLoading(false)
-        if (items.isEmpty()) {
-            binding.tvErrorMessage.visibility = View.VISIBLE
-        }
         val adapter = ListUserAdapter(items)
         binding.rvListUser.adapter = adapter
 
@@ -74,10 +83,8 @@ class MainActivity : AppCompatActivity() {
         searchView.queryHint = resources.getString(R.string.search_user)
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
-                binding.tvErrorMessage.visibility = View.GONE
                 mainViewModel.findUser(query)
                 searchView.clearFocus()
-
                 return true
             }
 
