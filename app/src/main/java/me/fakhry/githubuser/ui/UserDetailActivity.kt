@@ -18,17 +18,6 @@ class UserDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityUserDetailBinding
     private val userDetailViewModel: UserDetailViewModel by viewModels()
 
-    companion object {
-        const val EXTRA_USER = "extra_user"
-        const val TAG = "UserDetailActivity"
-
-        @StringRes
-        private val TAB_TITLES = intArrayOf(
-            R.string.followers,
-            R.string.following
-        )
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityUserDetailBinding.inflate(layoutInflater)
@@ -65,5 +54,16 @@ class UserDetailActivity : AppCompatActivity() {
             tvFollowers.text = getString(R.string._999_followers, responseBody.followers)
             tvFollowing.text = getString(R.string._999_following, responseBody.following)
         }
+    }
+
+    companion object {
+        const val EXTRA_USER = "extra_user"
+        const val TAG = "UserDetailActivity"
+
+        @StringRes
+        private val TAB_TITLES = intArrayOf(
+            R.string.followers,
+            R.string.following
+        )
     }
 }

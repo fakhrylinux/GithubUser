@@ -20,11 +20,6 @@ class FollowFragment : Fragment() {
 
     private val userDetailViewModel: UserDetailViewModel by viewModels()
 
-    companion object {
-        const val ARG_POSITION = "arg_position"
-        const val ARG_USERNAME = "arg_username"
-    }
-
     private var position: Int = 0
     private var username: String? = null
 
@@ -59,5 +54,10 @@ class FollowFragment : Fragment() {
             val adapter = FollowAdapter(userFollow)
             binding.rvListFollow.adapter = adapter
         }
+    }
+
+    companion object {
+        const val ARG_POSITION = "arg_position"
+        const val ARG_USERNAME = "arg_username"
     }
 }
