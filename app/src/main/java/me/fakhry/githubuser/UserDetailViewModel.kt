@@ -80,9 +80,14 @@ class UserDetailViewModel(private val favoriteRepository: FavoriteRepository) : 
         })
     }
 
-    fun saveFavorite(favorite: FavoriteEntity) {
+    fun saveFavorite(isFavorite: Boolean) {
+        val favoriteEntity = FavoriteEntity(
+            username = _userDetail.value?.login!!,
+            avatarUrl = _userDetail.value?.avatarUrl!!,
+            isFavorited = isFavorite
+        )
         viewModelScope.launch {
-            favoriteRepository.setFavorite(favorite, true)
+            favoriteRepository.setFavorite(favoriteEntity, true)
         }
     }
 

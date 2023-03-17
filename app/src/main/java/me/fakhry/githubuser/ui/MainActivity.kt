@@ -14,6 +14,7 @@ import com.google.android.material.divider.MaterialDividerItemDecoration
 import me.fakhry.githubuser.ListUserAdapter
 import me.fakhry.githubuser.MainViewModel
 import me.fakhry.githubuser.R
+import me.fakhry.githubuser.data.local.entity.FavoriteEntity
 import me.fakhry.githubuser.databinding.ActivityMainBinding
 import me.fakhry.githubuser.data.network.response.ItemsItem
 import me.fakhry.githubuser.util.showLoading

@@ -21,6 +21,8 @@ class ViewModelFactory private constructor(private val favoriteRepository: Favor
     companion object {
         @Volatile
         private var instance: ViewModelFactory? = null
+
+        @JvmStatic
         fun getInstance(context: Context): ViewModelFactory =
             instance ?: synchronized(this) {
                 instance ?: ViewModelFactory(Injection.provideRepository(context))

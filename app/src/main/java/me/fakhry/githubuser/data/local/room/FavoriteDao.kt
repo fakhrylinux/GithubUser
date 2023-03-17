@@ -8,7 +8,7 @@ import me.fakhry.githubuser.data.local.entity.FavoriteEntity
 interface FavoriteDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insert(favoriteEntity: FavoriteEntity)
+    suspend fun insert(favoriteEntity: FavoriteEntity)
 
     @Delete
     fun delete(favoriteEntity: FavoriteEntity)

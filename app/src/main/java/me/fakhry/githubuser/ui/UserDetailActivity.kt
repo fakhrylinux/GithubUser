@@ -3,6 +3,7 @@ package me.fakhry.githubuser.ui
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -13,6 +14,7 @@ import me.fakhry.githubuser.SectionsPagerAdapter
 import me.fakhry.githubuser.UserDetailViewModel
 import me.fakhry.githubuser.data.local.entity.FavoriteEntity
 import me.fakhry.githubuser.data.network.response.GetUserResponse
+import me.fakhry.githubuser.data.network.response.ItemsItem
 import me.fakhry.githubuser.databinding.ActivityUserDetailBinding
 import me.fakhry.githubuser.util.showLoading
 
@@ -20,8 +22,8 @@ class UserDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityUserDetailBinding
     private lateinit var menuFav: Menu
-    private var favorite: FavoriteEntity? = null
-
+//    private var favorite: FavoriteEntity? = null
+    private var user: ItemsItem? = null
     private lateinit var userDetailViewModel: UserDetailViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,7 +33,7 @@ class UserDetailActivity : AppCompatActivity() {
 
         userDetailViewModel = obtainViewModel(this@UserDetailActivity)
 
-        supportActionBar?.hide()
+//        supportActionBar?.hide()
 
         val sectionsPagerAdapter = SectionsPagerAdapter(this)
         sectionsPagerAdapter.username = intent.getStringExtra(EXTRA_USER) ?: ""
@@ -75,7 +77,12 @@ class UserDetailActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.favorite -> {
-                userDetailViewModel.saveFavorite(favorite as FavoriteEntity)
+//                favorite?.let { favorite ->
+//                }
+
+                userDetailViewModel.saveFavorite(true)
+
+                Toast.makeText(this, "Add to favorite", Toast.LENGTH_LONG).show()
             }
         }
         return super.onOptionsItemSelected(item)
