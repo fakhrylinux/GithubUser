@@ -18,8 +18,6 @@ class FollowFragment : Fragment() {
     private var _binding: FragmentFollowBinding? = null
     private val binding get() = _binding
 
-    private val userDetailViewModel: UserDetailViewModel by viewModels()
-
     private var position: Int = 0
     private var username: String? = null
 
@@ -38,6 +36,9 @@ class FollowFragment : Fragment() {
             position = it.getInt(ARG_POSITION)
             username = it.getString(ARG_USERNAME)
         }
+
+        val factory: ViewModelFactory = ViewModelFactory.getInstance(requireActivity())
+        val userDetailViewModel: UserDetailViewModel by viewModels { factory }
 
         val layoutManager = LinearLayoutManager(context)
         binding?.rvListFollow?.layoutManager = layoutManager

@@ -1,4 +1,4 @@
-package me.fakhry.githubuser.network.response
+package me.fakhry.githubuser.data.network.response
 
 import com.google.gson.annotations.SerializedName
 

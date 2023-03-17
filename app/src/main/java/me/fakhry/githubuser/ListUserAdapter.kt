@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import me.fakhry.githubuser.databinding.RowItemBinding
-import me.fakhry.githubuser.network.response.ItemsItem
+import me.fakhry.githubuser.data.network.response.ItemsItem
 
 class ListUserAdapter(private val listUser: List<ItemsItem>) :
     RecyclerView.Adapter<ListUserAdapter.ViewHolder>() {

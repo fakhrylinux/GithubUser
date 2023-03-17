@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import me.fakhry.githubuser.databinding.ItemFollowBinding
-import me.fakhry.githubuser.network.response.ItemsItem
+import me.fakhry.githubuser.data.network.response.ItemsItem
 
 class FollowAdapter(private val listFollow: List<ItemsItem>) :
     RecyclerView.Adapter<FollowAdapter.ViewHolder>() {

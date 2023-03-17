@@ -1,6 +1,6 @@
-package me.fakhry.githubuser.network
+package me.fakhry.githubuser.data.network.retrofit
 
-import me.fakhry.githubuser.network.response.*
+import me.fakhry.githubuser.data.network.response.*
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path

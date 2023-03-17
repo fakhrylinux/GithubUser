@@ -1,27 +1,35 @@
 package me.fakhry.githubuser.ui
 
 import android.os.Bundle
-import androidx.activity.viewModels
+import android.view.Menu
+import android.view.MenuItem
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import coil.load
 import com.google.android.material.tabs.TabLayoutMediator
 import me.fakhry.githubuser.R
 import me.fakhry.githubuser.SectionsPagerAdapter
 import me.fakhry.githubuser.UserDetailViewModel
+import me.fakhry.githubuser.data.local.entity.FavoriteEntity
+import me.fakhry.githubuser.data.network.response.GetUserResponse
 import me.fakhry.githubuser.databinding.ActivityUserDetailBinding
-import me.fakhry.githubuser.network.response.GetUserResponse
 import me.fakhry.githubuser.util.showLoading
 
 class UserDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityUserDetailBinding
-    private val userDetailViewModel: UserDetailViewModel by viewModels()
+    private lateinit var menuFav: Menu
+    private var favorite: FavoriteEntity? = null
+
+    private lateinit var userDetailViewModel: UserDetailViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityUserDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        userDetailViewModel = obtainViewModel(this@UserDetailActivity)
 
         supportActionBar?.hide()
 
@@ -37,7 +45,7 @@ class UserDetailActivity : AppCompatActivity() {
         userDetailViewModel.setUserDetail(intent.getStringExtra(EXTRA_USER) ?: "")
 
         userDetailViewModel.userDetail.observe(this) { userDetail ->
-            setUserView(userDetail)
+            populateDetailView(userDetail)
         }
 
         userDetailViewModel.isLoading.observe(this) { isLoading ->
@@ -45,7 +53,7 @@ class UserDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun setUserView(responseBody: GetUserResponse) {
+    private fun populateDetailView(responseBody: GetUserResponse) {
         binding.apply {
             ivAvatar.load(responseBody.avatarUrl)
             tvFullName.text = responseBody.name
@@ -54,6 +62,28 @@ class UserDetailActivity : AppCompatActivity() {
             tvFollowers.text = getString(R.string._999_followers, responseBody.followers)
             tvFollowing.text = getString(R.string._999_following, responseBody.following)
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.detail_menu, menu)
+        menuFav = menu
+
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.favorite -> {
+                userDetailViewModel.saveFavorite(favorite as FavoriteEntity)
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun obtainViewModel(activity: AppCompatActivity): UserDetailViewModel {
+        val factory = ViewModelFactory.getInstance(activity.application)
+        return ViewModelProvider(activity, factory)[UserDetailViewModel::class.java]
     }
 
     companion object {

@@ -4,9 +4,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import me.fakhry.githubuser.network.ApiConfig
-import me.fakhry.githubuser.network.response.ItemsItem
-import me.fakhry.githubuser.network.response.SearchUserResponse
+import me.fakhry.githubuser.data.network.retrofit.ApiConfig
+import me.fakhry.githubuser.data.network.response.ItemsItem
+import me.fakhry.githubuser.data.network.response.SearchUserResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

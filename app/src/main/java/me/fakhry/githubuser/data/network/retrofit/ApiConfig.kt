@@ -1,4 +1,4 @@
-package me.fakhry.githubuser.network
+package me.fakhry.githubuser.data.network.retrofit
 
 import me.fakhry.githubuser.BuildConfig
 import okhttp3.Interceptor
