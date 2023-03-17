@@ -16,7 +16,7 @@ import me.fakhry.githubuser.util.showLoading
 class FollowFragment : Fragment() {
 
     private var _binding: FragmentFollowBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding
 
     private val userDetailViewModel: UserDetailViewModel by viewModels()
 
@@ -26,9 +26,9 @@ class FollowFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         _binding = FragmentFollowBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -40,19 +40,19 @@ class FollowFragment : Fragment() {
         }
 
         val layoutManager = LinearLayoutManager(context)
-        binding.rvListFollow.layoutManager = layoutManager
+        binding?.rvListFollow?.layoutManager = layoutManager
         val itemDecoration = DividerItemDecoration(activity, layoutManager.orientation)
-        binding.rvListFollow.addItemDecoration(itemDecoration)
+        binding?.rvListFollow?.addItemDecoration(itemDecoration)
 
         userDetailViewModel.setUserFollow(username ?: "", position)
 
         userDetailViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
-            binding.pbFollow.showLoading(isLoading)
+            binding?.pbFollow?.showLoading(isLoading)
         }
 
         userDetailViewModel.userFollow.observe(viewLifecycleOwner) { userFollow ->
             val adapter = FollowAdapter(userFollow)
-            binding.rvListFollow.adapter = adapter
+            binding?.rvListFollow?.adapter = adapter
         }
     }
 

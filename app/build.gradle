@@ -16,6 +16,8 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "GITHUB_AUTH_KEY", '"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"')
     }
 
     buildTypes {
