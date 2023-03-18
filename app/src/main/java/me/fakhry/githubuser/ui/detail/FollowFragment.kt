@@ -1,4 +1,4 @@
-package me.fakhry.githubuser.ui
+package me.fakhry.githubuser.ui.detail
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,8 +9,8 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import me.fakhry.githubuser.FollowAdapter
-import me.fakhry.githubuser.ui.detail.UserDetailViewModel
 import me.fakhry.githubuser.databinding.FragmentFollowBinding
+import me.fakhry.githubuser.ui.ViewModelFactory
 import me.fakhry.githubuser.util.showLoading
 
 class FollowFragment : Fragment() {

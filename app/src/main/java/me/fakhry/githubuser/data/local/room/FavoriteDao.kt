@@ -15,7 +15,7 @@ interface FavoriteDao {
     suspend fun delete(favoriteEntity: FavoriteEntity)
 
     @Query("SELECT * FROM FavoriteEntity")
-    fun getAllFavorite(): LiveData<List<FavoriteEntity>>
+    suspend fun getAllFavorite(): List<FavoriteEntity>
 
     @Query("SELECT EXISTS(SELECT * FROM FavoriteEntity WHERE username = :username AND is_favorite = 1)")
     suspend fun isFavorite(username: String): Boolean

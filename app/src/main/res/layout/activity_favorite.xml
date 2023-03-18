@@ -4,27 +4,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.detail.FollowFragment">
+    tools:context=".ui.favorite.FavoriteActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_list_follow"
+        android:id="@+id/rv_list_favorite"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/item_follow" />
+        tools:listitem="@layout/row_item" />
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
-        android:id="@+id/pb_follow"
+        android:id="@+id/progress_bar"
         style="@style/Widget.Material3.CircularProgressIndicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:indeterminate="true"
         android:visibility="gone"
         app:indicatorColor="?attr/colorSecondary"
+        app:indicatorSize="80dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible" />
 
+    <TextView
+        android:id="@+id/tv_error_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/no_data_found"
+        tools:visibility="visible" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -13,9 +14,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import me.fakhry.githubuser.ListUserAdapter
 import me.fakhry.githubuser.R
-import me.fakhry.githubuser.databinding.ActivityMainBinding
 import me.fakhry.githubuser.data.network.response.ItemsItem
+import me.fakhry.githubuser.databinding.ActivityMainBinding
 import me.fakhry.githubuser.ui.detail.UserDetailActivity
+import me.fakhry.githubuser.ui.favorite.FavoriteActivity
 import me.fakhry.githubuser.util.showLoading
 
 class MainActivity : AppCompatActivity() {
@@ -38,7 +40,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun observeViewModel() {
         mainViewModel.listUsers.observe(this) { listUsers ->
-            setUserData(listUsers)
+            setUpUserList(listUsers)
         }
 
         mainViewModel.isLoading.observe(this) { isLoading ->
@@ -58,7 +60,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setUserData(items: List<ItemsItem>) {
+    private fun setUpUserList(items: List<ItemsItem>) {
         binding.progressBar.showLoading(false)
         val adapter = ListUserAdapter(items)
         binding.rvListUser.adapter = adapter
@@ -94,5 +96,15 @@ class MainActivity : AppCompatActivity() {
         })
 
         return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.favorite -> {
+                startActivity(Intent(this, FavoriteActivity::class.java))
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 }

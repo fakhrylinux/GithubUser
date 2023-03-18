@@ -10,7 +10,7 @@ class FavoriteRepository private constructor(
 ) {
     private val result = MediatorLiveData<Result<List<FavoriteEntity>>>()
 
-    fun getAllFavorite(): LiveData<List<FavoriteEntity>> {
+    suspend fun getAllFavorite(): List<FavoriteEntity> {
         return favoriteDao.getAllFavorite()
     }
 

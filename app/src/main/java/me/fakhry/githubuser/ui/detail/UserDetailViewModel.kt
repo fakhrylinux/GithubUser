@@ -11,7 +11,6 @@ import me.fakhry.githubuser.data.network.response.GetUserResponse
 import me.fakhry.githubuser.data.network.response.ItemsItem
 import me.fakhry.githubuser.data.network.retrofit.ApiConfig
 import me.fakhry.githubuser.data.repository.FavoriteRepository
-import me.fakhry.githubuser.ui.FollowFragment
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -29,9 +28,6 @@ class UserDetailViewModel(private val favoriteRepository: FavoriteRepository) : 
 
     private val _isFavorite = MutableLiveData<Boolean>()
     val isFavorite: LiveData<Boolean> = _isFavorite
-
-    private val _usernameFav = MutableLiveData<String>()
-    val usernameFav: LiveData<String> = _usernameFav
 
     fun getUserDetail(username: String) {
         _isLoading.value = true
@@ -81,11 +77,6 @@ class UserDetailViewModel(private val favoriteRepository: FavoriteRepository) : 
             }
         })
     }
-
-//    fun getFavoriteByUsername(username: String) {
-//        _usernameFav.value = favoriteRepository.getFavoriteByUsername(username).value?.username
-//        _isFavorite.value = _usernameFav.value != null
-//    }
 
     fun isFavorite(username: String) {
         viewModelScope.launch {

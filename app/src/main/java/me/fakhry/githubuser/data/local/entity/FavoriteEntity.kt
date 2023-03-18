@@ -15,7 +15,7 @@ class FavoriteEntity(
     var username: String = "",
 
     @field:ColumnInfo(name = "avatar_url")
-    var avatarUrl: String? = null,
+    var avatarUrl: String,
 
     @field:ColumnInfo(name = "is_favorite")
     var isFavorite: Boolean
