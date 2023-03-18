@@ -13,7 +13,6 @@ import com.google.android.material.tabs.TabLayoutMediator
 import me.fakhry.githubuser.R
 import me.fakhry.githubuser.SectionsPagerAdapter
 import me.fakhry.githubuser.data.network.response.GetUserResponse
-import me.fakhry.githubuser.data.network.response.ItemsItem
 import me.fakhry.githubuser.databinding.ActivityUserDetailBinding
 import me.fakhry.githubuser.ui.ViewModelFactory
 import me.fakhry.githubuser.util.showLoading
@@ -23,7 +22,6 @@ class UserDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityUserDetailBinding
     private lateinit var menuFav: Menu
 
-    private var user: ItemsItem? = null
     private lateinit var userDetailViewModel: UserDetailViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,8 +46,6 @@ class UserDetailActivity : AppCompatActivity() {
             populateDetailView(userDetail)
         }
 
-//        userDetailViewModel.getFavoriteByUsername()
-
         userDetailViewModel.isFavorite.observe(this) { isFavorite ->
             if (isFavorite) {
                 menuFav.getItem(0).icon =
@@ -66,7 +62,6 @@ class UserDetailActivity : AppCompatActivity() {
     }
 
     private fun populateDetailView(responseBody: GetUserResponse) {
-//        userDetailViewModel.getFavoriteByUsername(intent?.getStringExtra(EXTRA_USER) ?: "")
         binding.apply {
             ivAvatar.load(responseBody.avatarUrl)
             tvFullName.text = responseBody.name
@@ -89,9 +84,19 @@ class UserDetailActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.favorite -> {
-                userDetailViewModel.saveFavorite(true)
-
-                Toast.makeText(this, getString(R.string.add_to_favorite), Toast.LENGTH_SHORT).show()
+                if (userDetailViewModel.isFavorite.value == true) {
+                    userDetailViewModel.deleteFavorite(intent?.getStringExtra(EXTRA_USER) ?: "")
+                    Toast.makeText(
+                        this,
+                        getString(R.string.delete_from_favorite),
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
+                } else {
+                    userDetailViewModel.saveFavorite(true)
+                    Toast.makeText(this, getString(R.string.add_to_favorite), Toast.LENGTH_SHORT)
+                        .show()
+                }
             }
         }
         return super.onOptionsItemSelected(item)

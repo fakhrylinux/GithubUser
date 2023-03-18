@@ -27,6 +27,10 @@ class FavoriteRepository private constructor(
         return favoriteDao.isFavorite(username)
     }
 
+    suspend fun deleteFavorite(favorite: FavoriteEntity) {
+        favoriteDao.delete(favorite)
+    }
+
     companion object {
         @Volatile
         private var instance: FavoriteRepository? = null

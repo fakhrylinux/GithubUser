@@ -12,7 +12,7 @@ interface FavoriteDao {
     suspend fun insert(favoriteEntity: FavoriteEntity)
 
     @Delete
-    fun delete(favoriteEntity: FavoriteEntity)
+    suspend fun delete(favoriteEntity: FavoriteEntity)
 
     @Query("SELECT * FROM FavoriteEntity")
     fun getAllFavorite(): LiveData<List<FavoriteEntity>>

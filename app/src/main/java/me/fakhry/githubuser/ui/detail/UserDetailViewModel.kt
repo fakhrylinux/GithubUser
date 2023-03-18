@@ -102,11 +102,18 @@ class UserDetailViewModel(private val favoriteRepository: FavoriteRepository) : 
         viewModelScope.launch {
             favoriteRepository.setFavorite(favoriteEntity, true)
         }
+        _isFavorite.value = true
     }
 
-    fun deleteFavorite(favorite: FavoriteEntity) {
+    fun deleteFavorite(username: String) {
+        val favoriteEntity = FavoriteEntity(
+            username = username,
+            avatarUrl = _userDetail.value?.avatarUrl!!,
+            isFavorite = true
+        )
         viewModelScope.launch {
-            favoriteRepository.setFavorite(favorite, false)
+            favoriteRepository.deleteFavorite(favoriteEntity)
         }
+        _isFavorite.value = false
     }
 }
