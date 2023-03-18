@@ -18,6 +18,7 @@ class FavoriteActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityFavoriteBinding
     private lateinit var favoriteViewModel: FavoriteViewModel
+    private var adapter: ListUserAdapter = ListUserAdapter(listOf())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +37,11 @@ class FavoriteActivity : AppCompatActivity() {
         observeViewModel()
     }
 
+    override fun onResume() {
+        super.onResume()
+        favoriteViewModel.getFavoriteUsers()
+    }
+
     private fun observeViewModel() {
         favoriteViewModel.listFavorite.observe(this) { listFavorite ->
             val items = arrayListOf<ItemsItem>()
@@ -45,12 +51,11 @@ class FavoriteActivity : AppCompatActivity() {
             }
             setUpUserList(items)
         }
-
     }
 
     private fun setUpUserList(items: List<ItemsItem>) {
         binding.progressBar.showLoading(false)
-        val adapter = ListUserAdapter(items)
+        adapter = ListUserAdapter(items)
         binding.rvListFavorite.adapter = adapter
 
         adapter.setOnItemClickCallback(object : ListUserAdapter.OnItemClickCallback {

@@ -1,6 +1,5 @@
 package me.fakhry.githubuser.ui.favorite
 
-import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -24,7 +23,7 @@ class FavoriteViewModel(
         getFavoriteUsers()
     }
 
-    private fun getFavoriteUsers() {
+    fun getFavoriteUsers() {
         _isLoading.value = true
         viewModelScope.launch {
             _listFavorite.value = favoriteRepository.getAllFavorite()
