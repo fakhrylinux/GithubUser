@@ -85,9 +85,11 @@ class UserDetailViewModel(private val favoriteRepository: FavoriteRepository) : 
     }
 
     fun saveFavorite(isFavorite: Boolean) {
+        val username = _userDetail.value?.login ?: ""
+        val avatarUrl = _userDetail.value?.avatarUrl ?: ""
         val favoriteEntity = FavoriteEntity(
-            username = _userDetail.value?.login!!,
-            avatarUrl = _userDetail.value?.avatarUrl!!,
+            username = username,
+            avatarUrl = avatarUrl,
             isFavorite = isFavorite
         )
         viewModelScope.launch {
@@ -97,9 +99,10 @@ class UserDetailViewModel(private val favoriteRepository: FavoriteRepository) : 
     }
 
     fun deleteFavorite(username: String) {
+        val avatarUrl = _userDetail.value?.avatarUrl ?: ""
         val favoriteEntity = FavoriteEntity(
             username = username,
-            avatarUrl = _userDetail.value?.avatarUrl!!,
+            avatarUrl = avatarUrl,
             isFavorite = true
         )
         viewModelScope.launch {
