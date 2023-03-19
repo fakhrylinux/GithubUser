@@ -11,16 +11,15 @@ import androidx.lifecycle.ViewModelProvider
 import coil.load
 import com.google.android.material.tabs.TabLayoutMediator
 import me.fakhry.githubuser.R
-import me.fakhry.githubuser.ui.SectionsPagerAdapter
 import me.fakhry.githubuser.data.network.response.GetUserResponse
 import me.fakhry.githubuser.databinding.ActivityUserDetailBinding
+import me.fakhry.githubuser.ui.SectionsPagerAdapter
 import me.fakhry.githubuser.ui.ViewModelFactory
 import me.fakhry.githubuser.util.showLoading
 
 class UserDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityUserDetailBinding
-    private lateinit var menuFav: Menu
 
     private lateinit var userDetailViewModel: UserDetailViewModel
 
@@ -46,16 +45,6 @@ class UserDetailActivity : AppCompatActivity() {
             populateDetailView(userDetail)
         }
 
-        userDetailViewModel.isFavorite.observe(this) { isFavorite ->
-            if (isFavorite) {
-                menuFav.getItem(0).icon =
-                    ContextCompat.getDrawable(this, R.drawable.ic_favorite_24)
-            } else {
-                menuFav.getItem(0).icon =
-                    ContextCompat.getDrawable(this, R.drawable.ic_favorite_border_24)
-            }
-        }
-
         userDetailViewModel.isLoading.observe(this) { isLoading ->
             binding.progressBar.showLoading(isLoading)
         }
@@ -76,7 +65,16 @@ class UserDetailActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater = menuInflater
         inflater.inflate(R.menu.detail_menu, menu)
-        menuFav = menu
+
+        userDetailViewModel.isFavorite.observe(this) { isFavorite ->
+            if (isFavorite) {
+                menu.getItem(0).icon =
+                    ContextCompat.getDrawable(this, R.drawable.ic_favorite_24)
+            } else {
+                menu.getItem(0).icon =
+                    ContextCompat.getDrawable(this, R.drawable.ic_favorite_border_24)
+            }
+        }
 
         return super.onCreateOptionsMenu(menu)
     }
