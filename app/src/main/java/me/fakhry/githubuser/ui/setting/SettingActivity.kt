@@ -1,5 +1,6 @@
 package me.fakhry.githubuser.ui.setting
 
+import android.app.UiModeManager
 import android.content.Context
 import android.os.Bundle
 import android.widget.CompoundButton
@@ -23,11 +24,13 @@ class SettingActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val pref = SettingPreferences.getInstance(dataStore)
+//        val uiModeManager = UiModeManager()
         val settingViewModel =
             ViewModelProvider(this, ViewModelFactory(pref))[SettingViewModel::class.java]
         settingViewModel.getThemeSettings().observe(this) { isDarkModeActive: Boolean ->
             if (isDarkModeActive) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+//                AppCompatDelegate.setApplicationLocales()
                 binding.switchTheme.isChecked = true
             } else {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
