@@ -9,16 +9,27 @@ import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SearchView
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.divider.MaterialDividerItemDecoration
-import me.fakhry.githubuser.ListUserAdapter
 import me.fakhry.githubuser.R
 import me.fakhry.githubuser.data.network.response.ItemsItem
 import me.fakhry.githubuser.databinding.ActivityMainBinding
+import me.fakhry.githubuser.ui.ListUserAdapter
 import me.fakhry.githubuser.ui.detail.UserDetailActivity
 import me.fakhry.githubuser.ui.favorite.FavoriteActivity
+import me.fakhry.githubuser.ui.setting.SettingActivity
+import me.fakhry.githubuser.ui.setting.SettingPreferences
+import me.fakhry.githubuser.ui.setting.SettingViewModel
+import me.fakhry.githubuser.ui.setting.ViewModelFactory
 import me.fakhry.githubuser.util.showLoading
+
+private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
 class MainActivity : AppCompatActivity() {
 
@@ -35,6 +46,17 @@ class MainActivity : AppCompatActivity() {
         val itemDecoration = MaterialDividerItemDecoration(this, layoutManager.orientation)
         binding.rvListUser.addItemDecoration(itemDecoration)
 
+        val pref = SettingPreferences.getInstance(dataStore)
+        val settingViewModel =
+            ViewModelProvider(this, ViewModelFactory(pref))[SettingViewModel::class.java]
+
+        settingViewModel.getThemeSettings().observe(this) { isDarkModeActive: Boolean ->
+            if (isDarkModeActive) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+        }
         observeViewModel()
     }
 
@@ -61,7 +83,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setUpUserList(items: List<ItemsItem>) {
-        binding.progressBar.showLoading(false)
         val adapter = ListUserAdapter(items)
         binding.rvListUser.adapter = adapter
 
@@ -72,6 +93,7 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intentDetail)
             }
         })
+        binding.progressBar.showLoading(false)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -102,6 +124,9 @@ class MainActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.favorite -> {
                 startActivity(Intent(this, FavoriteActivity::class.java))
+            }
+            R.id.setting -> {
+                startActivity(Intent(this, SettingActivity::class.java))
             }
         }
 

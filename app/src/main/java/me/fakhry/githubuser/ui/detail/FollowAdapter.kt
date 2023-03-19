@@ -1,4 +1,4 @@
-package me.fakhry.githubuser
+package me.fakhry.githubuser.ui.detail
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

@@ -67,4 +67,8 @@ dependencies {
 
     // to solve error: package javax.annotation does not exist
     implementation 'javax.annotation:javax.annotation-api:1.3.2'
+
+    implementation "androidx.datastore:datastore-preferences:1.0.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.0"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.6.0"
 }

@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import coil.load
 import com.google.android.material.tabs.TabLayoutMediator
 import me.fakhry.githubuser.R
-import me.fakhry.githubuser.SectionsPagerAdapter
+import me.fakhry.githubuser.ui.SectionsPagerAdapter
 import me.fakhry.githubuser.data.network.response.GetUserResponse
 import me.fakhry.githubuser.databinding.ActivityUserDetailBinding
 import me.fakhry.githubuser.ui.ViewModelFactory

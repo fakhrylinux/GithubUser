@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import me.fakhry.githubuser.FollowAdapter
 import me.fakhry.githubuser.databinding.FragmentFollowBinding
 import me.fakhry.githubuser.ui.ViewModelFactory
 import me.fakhry.githubuser.util.showLoading

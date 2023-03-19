@@ -1,6 +1,5 @@
 package me.fakhry.githubuser.ui
 
-import android.app.Application
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -10,7 +9,6 @@ import me.fakhry.githubuser.ui.detail.UserDetailViewModel
 import me.fakhry.githubuser.ui.favorite.FavoriteViewModel
 
 class ViewModelFactory private constructor(
-//    private val mApplication: Application,
     private val favoriteRepository: FavoriteRepository
 ) :
     ViewModelProvider.NewInstanceFactory() {

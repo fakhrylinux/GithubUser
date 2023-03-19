@@ -2,17 +2,17 @@ package me.fakhry.githubuser.ui.favorite
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.divider.MaterialDividerItemDecoration
-import me.fakhry.githubuser.ListUserAdapter
 import me.fakhry.githubuser.R
 import me.fakhry.githubuser.data.network.response.ItemsItem
 import me.fakhry.githubuser.databinding.ActivityFavoriteBinding
+import me.fakhry.githubuser.ui.ListUserAdapter
 import me.fakhry.githubuser.ui.ViewModelFactory
 import me.fakhry.githubuser.ui.detail.UserDetailActivity
-import me.fakhry.githubuser.util.showLoading
 
 class FavoriteActivity : AppCompatActivity() {
 
@@ -44,6 +44,10 @@ class FavoriteActivity : AppCompatActivity() {
 
     private fun observeViewModel() {
         favoriteViewModel.listFavorite.observe(this) { listFavorite ->
+            if (listFavorite.isEmpty()) {
+                binding.tvErrorMessage.visibility = View.VISIBLE
+                binding.tvErrorMessage.text = getString(R.string.you_dont_have_favorite_user)
+            }
             val items = arrayListOf<ItemsItem>()
             listFavorite.map {
                 val item = ItemsItem(login = it.username, avatarUrl = it.avatarUrl)
@@ -51,10 +55,17 @@ class FavoriteActivity : AppCompatActivity() {
             }
             setUpUserList(items)
         }
+
+        favoriteViewModel.isError.observe(this) { isError ->
+            binding.tvErrorMessage.visibility = View.VISIBLE
+        }
+
+        favoriteViewModel.respondMessage.observe(this) { respondMessage ->
+            binding.tvErrorMessage.text = respondMessage
+        }
     }
 
     private fun setUpUserList(items: List<ItemsItem>) {
-        binding.progressBar.showLoading(false)
         adapter = ListUserAdapter(items)
         binding.rvListFavorite.adapter = adapter
 
