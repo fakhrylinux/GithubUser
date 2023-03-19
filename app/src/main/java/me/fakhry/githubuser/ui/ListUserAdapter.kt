@@ -32,7 +32,7 @@ class ListUserAdapter(private val listUser: List<ItemsItem>) :
         holder.binding.ivPhoto.load(photo)
 
         holder.itemView.setOnClickListener {
-            onItemClickCallback.onItemClicked(listUser[holder.adapterPosition])
+            onItemClickCallback.onItemClicked(listUser[holder.bindingAdapterPosition])
         }
     }
 

@@ -15,12 +15,6 @@ class FavoriteViewModel(
     private val _listFavorite = MutableLiveData<List<FavoriteEntity>>()
     val listFavorite: LiveData<List<FavoriteEntity>> = _listFavorite
 
-    private val _isError = MutableLiveData<Boolean>()
-    val isError: LiveData<Boolean> = _isError
-
-    private val _respondMessage = MutableLiveData<String>()
-    val respondMessage: LiveData<String> = _respondMessage
-
     init {
         getFavoriteUsers()
     }

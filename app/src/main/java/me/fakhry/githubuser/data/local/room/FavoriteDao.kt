@@ -3,7 +3,6 @@ package me.fakhry.githubuser.data.local.room
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import me.fakhry.githubuser.data.local.entity.FavoriteEntity
-import java.util.concurrent.Flow
 
 @Dao
 interface FavoriteDao {

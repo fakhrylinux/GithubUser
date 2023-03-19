@@ -55,14 +55,6 @@ class FavoriteActivity : AppCompatActivity() {
             }
             setUpUserList(items)
         }
-
-        favoriteViewModel.isError.observe(this) { isError ->
-            binding.tvErrorMessage.visibility = View.VISIBLE
-        }
-
-        favoriteViewModel.respondMessage.observe(this) { respondMessage ->
-            binding.tvErrorMessage.text = respondMessage
-        }
     }
 
     private fun setUpUserList(items: List<ItemsItem>) {

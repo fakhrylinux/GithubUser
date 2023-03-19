@@ -1,15 +1,9 @@
 package me.fakhry.githubuser.data.repository
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import me.fakhry.githubuser.data.local.entity.FavoriteEntity
 import me.fakhry.githubuser.data.local.room.FavoriteDao
 
-class FavoriteRepository private constructor(
-    private val favoriteDao: FavoriteDao
-) {
-    private val result = MediatorLiveData<Result<List<FavoriteEntity>>>()
-
+class FavoriteRepository private constructor(private val favoriteDao: FavoriteDao) {
     suspend fun getAllFavorite(): List<FavoriteEntity> {
         return favoriteDao.getAllFavorite()
     }
@@ -17,10 +11,6 @@ class FavoriteRepository private constructor(
     suspend fun setFavorite(favorite: FavoriteEntity, favoriteState: Boolean) {
         favorite.isFavorite = favoriteState
         favoriteDao.insert(favorite)
-    }
-
-    fun getFavoriteByUsername(username: String): LiveData<FavoriteEntity?> {
-        return favoriteDao.getFavoriteByUsername(username)
     }
 
     suspend fun isFavorite(username: String): Boolean {
