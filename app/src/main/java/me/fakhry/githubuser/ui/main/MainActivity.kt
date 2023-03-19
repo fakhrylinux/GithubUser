@@ -73,11 +73,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         mainViewModel.isError.observe(this) { isError ->
-            if (isError) {
-                binding.tvErrorMessage.visibility = View.VISIBLE
-            } else {
-                binding.tvErrorMessage.visibility = View.GONE
-            }
+            binding.tvErrorMessage.visibility = if (isError) View.VISIBLE else View.GONE
         }
 
         mainViewModel.respondMessage.observe(this) { message ->

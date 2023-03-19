@@ -13,9 +13,6 @@ data class GetUserResponse(
     @field:SerializedName("login")
     val login: String,
 
-    @field:SerializedName("email")
-    val email: String,
-
     @field:SerializedName("followers")
     val followers: Int,
 

@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import coil.load
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
 import me.fakhry.githubuser.R
 import me.fakhry.githubuser.data.network.response.GetUserResponse
@@ -47,6 +48,12 @@ class UserDetailActivity : AppCompatActivity() {
 
         userDetailViewModel.isLoading.observe(this) { isLoading ->
             binding.progressBar.showLoading(isLoading)
+        }
+
+        userDetailViewModel.respondMessage.observe(this) { respondMessage ->
+            Snackbar.make(binding.root, respondMessage, Snackbar.LENGTH_LONG)
+                .setAction(respondMessage, null)
+                .show()
         }
     }
 

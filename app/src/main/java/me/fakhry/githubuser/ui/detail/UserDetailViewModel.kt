@@ -29,6 +29,9 @@ class UserDetailViewModel(private val favoriteRepository: FavoriteRepository) : 
     private val _isFavorite = MutableLiveData<Boolean>()
     val isFavorite: LiveData<Boolean> = _isFavorite
 
+    private val _respondMessage = MutableLiveData<String>()
+    val respondMessage: LiveData<String> = _respondMessage
+
     fun getUserDetail(username: String) {
         _isLoading.value = true
         val client = ApiConfig.getApiService().getUser(username)
@@ -44,6 +47,7 @@ class UserDetailViewModel(private val favoriteRepository: FavoriteRepository) : 
             }
 
             override fun onFailure(call: Call<GetUserResponse>, t: Throwable) {
+                _respondMessage.value = "${t.message}"
                 Log.e(UserDetailActivity.TAG, "onFailure: ${t.message}")
             }
         })
