@@ -33,7 +33,7 @@
             android:orientation="vertical"
             card_view:layout_constraintGuide_begin="60dp" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_login"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
